@@ -16,34 +16,47 @@ function Window() {
   
   function hand1(){
     setweb(!web)
+    setdata(false)
+    setded(false)
   }
   function hand2(){
     setdata(!data)
+    setweb(false)
+    setded(false)
   }
   function hand3(){
     setded(!ded)
+    setweb(false)
+    setdata(false)
   }
  
 
   return (
-    <div className='grid grid-cols-3 mx-10  place-content-around  grid-flow-row-dense my-10'>
+    <div className='flex mx-10  place-content-around  justify-center my-10'>
 
-    <div className={'shadow-2xl rounded-xl my-10 grid justify-center text-center h-44 lg:w-80 place-content-around cursor-pointer ' + 
-    ('')} onClick={hand1}>
+    <div className={' shadow-2xl rounded-xl my-10 grid  h-44 place-content-around cursor-pointer justify-center text-center  ' + 
+    (web ? ' w-[1280px] transition-[width] duration-300':'lg:w-80 w-[100px] transition-[width] duration-300 ' ) +
+    (data || ded ? 'lg:w-[100px]  transition-[width]  duration-300 ':'lg:w-80 transition-[width] duration-300  ' )} 
+    onClick={hand1}>
+      <h1 className={' '+(web ? 'text-black  ':'hidden ')}></h1>
       <div className=''>
         <Image src={design} width={100}></Image>
         <h1>Web Dev</h1>
       </div>
     </div>
 
-    <div className={'h-44 shadow-2xl rounded-xl my-10 grid justify-center text-center lg:w-80 place-content-around cursor-pointer ' + ('')} onClick={hand2}>
+    <div className={'shadow-2xl rounded-xl my-10 grid justify-center text-center h-44 place-content-around cursor-pointer  ' + 
+    (data ? 'w-[1280px] transition-[width] duration-300':'lg:w-80 w-[100px] transition-[width] duration-300 ' ) +
+    (web || ded ? 'lg:w-[100px]  transition-[width] duration-300':'lg:w-80 transition-[width] duration-300 ' )} onClick={hand2}>
       <div>
         <Image src={code} width={100}></Image>
         <h1>Data Science</h1>
       </div>
     </div>
 
-    <div className={'h-44 shadow-2xl rounded-xl my-10 lg:w-80 grid justify-center text-center place-content-around cursor-pointer ' + ('')} onClick={hand3}>
+    <div className={'h-44 shadow-2xl rounded-xl my-10  grid justify-center text-center place-content-around cursor-pointer ' + 
+  (ded ? 'w-[1280px] transition-[width] duration-300':'lg:w-80 w-[100px] transition-[width] duration-300 ' ) +
+  (web || data ? 'lg:w-[100px]  transition-[width] duration-300':'lg:w-80 transition-[width] duration-300 ' )} onClick={hand3}>
       <div>
         <Image src={cons} width={100}></Image>
         <h1>Dedication</h1>
@@ -55,14 +68,20 @@ function Window() {
   )
 }
 export default function Home() {
+
+  const [dark  , setDark] = useState(false)
+
+
   return (
-    <main className="bg-white px-10 ">
+
+    <main className={"bg-white   " +(dark ? " dark " : "")}>
+     <div className='  px-10'>
       <section className=' min-h-screen'>
         <nav className='mb-12 py-5 flex justify-between '>
           <h1 className='text-xl hover:font-semibold '>Vincent</h1>
           <ul className='flex items-center'>
             <li>
-              <BsFillMoonStarsFill className='cursor-pointer text-2xl'></BsFillMoonStarsFill>
+              <BsFillMoonStarsFill onClick={()=> setDark(!dark)} className='cursor-pointer text-2xl'></BsFillMoonStarsFill>
             </li>
             <li><a className=' text-white bg-gradient-to-r from-cyan-700 to bg-cyan-500 rounded-xl p-3 mx-10'
               href="#">resume</a></li>
@@ -88,12 +107,12 @@ export default function Home() {
       </section>
 
       <section>
-        <div>
-          <h3 className='text-3xl py-1 mx-auto font-[500]'>Experience</h3>
+        <div className='mx-10 pt-4'>
+          <h3 className='text-3xl pt-1 mx-auto font-[500]'>Experience</h3>
           <p className='py-2 text-md text-gray-800 text-medium'>
             well i havent done much yet as <span className='text-teal-500 font-semibold'>25/06/2023</span> , but im planning in the future to do more cool stuff , at minimal until 21 August i should have a really great and wonderful summer holliday experience. Right now i am  trying to learn about front-end and back-end , well basicly fullstack , and with this new great expensive laptop i want also do some data science ,<span className='font-semibold text-teal-500'>well wish me luck!</span> </p>
         </div >
-
+      
         <Window></Window>
 
 
@@ -111,7 +130,8 @@ export default function Home() {
 
       </section>
 
-
+      </div>
     </main>
+
   )
 }
